@@ -6,7 +6,9 @@ tanks, a lattice mast) set in procedural hills with a lake. Everything —
 terrain, textures, sound — is generated at boot; there are no binary assets.
 
 ## Run
+Go to https://hoardersam.github.io/hoarder-sams-fpv-drone-simulator/
 
+Run locally:
 ```
 npm install
 npm run dev      # http://localhost:5173
