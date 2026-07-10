@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>🛸</text></svg>" />
+  <title>Hoarder Sam's FPV Drone Simulator</title>
+</head>
+<body>
+  <canvas id="view"></canvas>
+
+  <!-- OSD / HUD -->
+  <div id="hud" class="hidden">
+    <div id="osd-top">
+      <span id="osd-arm">DISARMED</span>
+      <span id="osd-mode">ANGLE</span>
+      <span id="osd-warn"></span>
+    </div>
+    <div id="osd-left"><span id="osd-speed">0</span><small> KM/H</small></div>
+    <div id="osd-right"><span id="osd-alt">0.0</span><small> M</small></div>
+    <div id="osd-bottom">
+      <span id="osd-batt">16.8V</span>
+      <span id="osd-timer">00:00</span>
+      <span id="osd-cam">FPV</span>
+    </div>
+    <div id="crosshair">+</div>
+    <div id="input-debug">
+      <div id="input-device">no gamepad — keyboard</div>
+      <div id="input-raw">raw: —</div>
+      <div id="input-mapped">
+        <div class="chan"><label>R</label><div class="bar"><div id="bar-roll" class="fill mid"></div></div></div>
+        <div class="chan"><label>P</label><div class="bar"><div id="bar-pitch" class="fill mid"></div></div></div>
+        <div class="chan"><label>Y</label><div class="bar"><div id="bar-yaw" class="fill mid"></div></div></div>
+        <div class="chan"><label>T</label><div class="bar"><div id="bar-thr" class="fill"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Start overlay -->
+  <div id="start-overlay">
+    <div class="panel">
+      <h1>HOARDER SAM'S FPV DRONE SIMULATOR</h1>
+      <p class="sub">acro / angle / hover &mdash; industrial bando &amp; open terrain</p>
+      <div class="controls">
+        <div><b>Keyboard</b> — W/S throttle &middot; A/D yaw &middot; Arrows pitch/roll<br/>
+        F arm &middot; M mode &middot; R reset &middot; C camera &middot; Esc menu</div>
+        <div><b>Radio / Gamepad</b> — plug in a USB RC transmitter (EdgeTX joystick
+        mode) or an Xbox-style pad. Pull throttle fully down, then arm
+        (ch5 switch / A button).</div>
+      </div>
+      <button id="btn-start">CLICK TO FLY</button>
+    </div>
+  </div>
+
+  <!-- Pause menu -->
+  <div id="menu" class="hidden">
+    <div class="panel">
+      <h2>SETTINGS</h2>
+      <div class="menu-grid">
+        <section>
+          <h3>Flight</h3>
+          <label>Mode
+            <select id="set-mode">
+              <option value="acro">Acro</option>
+              <option value="angle">Angle (self-level)</option>
+              <option value="hover">Hover (angle + alt hold)</option>
+            </select>
+          </label>
+          <label>RC rate <input type="range" id="set-rcrate" min="0.5" max="2.5" step="0.05"/><span></span></label>
+          <label>Super rate <input type="range" id="set-super" min="0" max="0.95" step="0.05"/><span></span></label>
+          <label>Expo <input type="range" id="set-expo" min="0" max="0.9" step="0.05"/><span></span></label>
+          <label>Camera tilt <input type="range" id="set-tilt" min="0" max="50" step="1"/><span></span></label>
+          <label>Camera FOV <input type="range" id="set-fov" min="80" max="140" step="1"/><span></span></label>
+        </section>
+        <section>
+          <h3>Input</h3>
+          <div id="set-device" class="dim">no gamepad detected</div>
+          <label class="chk"><input type="checkbox" id="inv-roll"/> invert roll</label>
+          <label class="chk"><input type="checkbox" id="inv-pitch"/> invert pitch</label>
+          <label class="chk"><input type="checkbox" id="inv-yaw"/> invert yaw</label>
+          <label class="chk"><input type="checkbox" id="inv-thr"/> invert throttle</label>
+        </section>
+        <section>
+          <h3>Graphics</h3>
+          <label>Quality
+            <select id="set-quality">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="ultra">Ultra</option>
+            </select>
+          </label>
+          <label class="chk"><input type="checkbox" id="set-audio" checked/> engine audio</label>
+        </section>
+      </div>
+      <div class="menu-buttons">
+        <button id="btn-resume">RESUME (Esc)</button>
+        <button id="btn-reset">RESET DRONE (R)</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
